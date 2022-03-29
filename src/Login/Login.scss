@@ -18,46 +18,6 @@
   }
 }
 
-@include d.desktop{
-  #textLogo {
-    display: flex;
-    margin-right: 5em;
-
-    .loginTitle {
-      font-size: 8vw;
-      margin: 0;
-    }
-    .loginSubtext {
-      font-size: 3vw;
-      margin: 0;
-    }
-  }
-
-  .loginAuthBox {
-    margin-left: 5em;
-    width: 10em;
-
-    .formTitle {
-      display: none;
-    }
-  
-    #loginEmail{
-      margin: 20% 0 0 0;
-    }
-  
-    #authBox {
-      margin: 0 0 0 10vw;
-    }
-  
-    .loginContainer {
-      // width: 50vw;
-      justify-content: flex-start;
-    }
-  }
-}
-
-
-
 /* Auth -------------------------------------- */
 .loginAuthBox {
   justify-self: center;
@@ -145,7 +105,7 @@
   }
 
   .separator {
-    /* margin: 5vh 0; */
+    margin: -2% 0 -3% 0;
     width: 90%;
   
     text-align: center;
@@ -200,5 +160,47 @@
   
     font-size: 3em;
     color: d.$primary-white;
+  }
+}
+
+/* Desktop Breakpoint ------------------------ */
+@include d.desktop{
+  #textLogo {
+    display: flex;
+    margin-right: 5em;
+
+    .loginTitle {
+      font-size: 8vw;
+      margin: 0;
+    }
+    .loginSubtext {
+      font-size: 3vw;
+      margin: 0;
+    }
+  }
+
+  .loginAuthBox {
+    margin-left: 5em;
+
+    .formTitle {
+      display: none;
+    }
+  
+    #loginEmail{
+      margin: 20% 0 0 0;
+    }
+  
+    #authBox {
+      margin: 0 0 0 10vw;
+    }
+  
+    .loginContainer {
+      // width: 50vw;
+      justify-content: flex-start;
+    }
+
+    .separator {
+      margin: 1% 0 0 0;
+    }
   }
 }
