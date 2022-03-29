@@ -105,12 +105,14 @@
     margin: 0 0 0 0;
   }
 
-  &__login {
+  .formButton {
+    // Extend copies the styles from the target element
+    margin: 4% 0 0 0;
+    padding: 1% 0 0 0;
+    text-align: center;
+
     width: 75%;
     height: 7%;
-
-    margin: 5% 0 10% 0;
-    padding: 0.5% 0 0 0;
 
     @include d.tekoFont(regular);
     font-size: 1.25em;
@@ -124,6 +126,8 @@
 
     &:hover {
       cursor: pointer;
+      background-color: d.$primary-darken;
+      box-shadow: 2px 2px 0 d.$primary-color;
     }
 
     &:active {
@@ -135,12 +139,9 @@
     }
   }
 
-  .createAccount {
-    // Extend copies the styles from the target element
-    @extend .loginAuthBox__login;
-    margin: 4% 0 0 0;
-    padding: 1% 0 0 0;
-    text-align: center;
+  .login {
+    margin: 5% 0 10% 0;
+    padding: 0.5% 0 0 0;
   }
 
   .separator {

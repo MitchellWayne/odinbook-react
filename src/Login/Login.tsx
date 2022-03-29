@@ -13,6 +13,12 @@ function Login() {
     // loginUser();
   }
 
+  const testDrive = () => {
+    setUsername("fake@email");
+    setPassword("Password123!");
+    // loginUser();
+  }
+
   return (
     <div className="Login">
       <div className="loginContainer">
@@ -27,10 +33,10 @@ function Login() {
             :
             null
           }
-          <input className="loginAuthBox__login" value="Log in" type="submit"/>
+          <input className="formButton login" value="Log in" type="submit"/>
           <hr className="separator"></hr>
-          <Link to="/signup" className="createAccount">Create an account</Link>
-          {/* <button className="createAccount" onClick={testDrive}>Test Drive Existing Account</button> */}
+          <Link to="/signup" className="formButton">Create an account</Link>
+          <button className="formButton" onClick={testDrive}>Test Drive Existing Account</button>
         </form>
 
         <div className="loginTextLogo" id="textLogo">
