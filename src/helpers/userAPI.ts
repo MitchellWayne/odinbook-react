@@ -31,3 +31,22 @@ export const getUserInfo = async () => {
     return null;
   }
 };
+
+export const createUser = async (params: URLSearchParams) => {
+  try {
+    let response = await fetch(`/users/`, {
+      method: "POST",
+      body: params,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
+    if (response.status === 406) {
+      return ({status: response.status, msg: "Email already taken, please use another."});
+    } else if (response.status === 201) {
+      return ({status: response.status, msg: "Successfully created new user"})
+    } else {
+      throw new Error("API Fetch failed");
+    }
+  } catch(err) {
+    console.log("Error on User POST");
+  }
+}
