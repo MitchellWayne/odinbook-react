@@ -2,7 +2,7 @@ import './Login.scss';
 import React, { useState } from 'react';
 
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addUser } from '../features/userSlice';
 
 function Login() {
@@ -31,6 +31,7 @@ function Login() {
 
       if (response.status === 200) {
         document.cookie = `loggedIn=true; max-age=${60 * 60 * 12}`;
+        document.cookie = `user=${parsedResponse.user._id}; max-age=${60 * 60 * 12}`;
         dispatch(addUser(parsedResponse.user));
         navigate('/home');
       } else {
