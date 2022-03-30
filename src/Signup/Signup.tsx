@@ -1,7 +1,6 @@
 import './Signup.scss';
 import { useState } from 'react';
 import { createUser } from '../helpers/userAPI';
-import { create } from 'domain';
 
 function Signup() {
   const [username, setUsername] = useState("");
