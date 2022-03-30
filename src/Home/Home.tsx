@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
-import { getUserInfo } from '../helpers/userAPI';
+import './Home.scss'
 
+import { useEffect } from 'react';
+import { reloadUser } from '../helpers/userAPI';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../app/store';
-import { addUser } from '../features/userSlice';
 
 import { User } from '../interfaces/User';
 
@@ -13,14 +13,7 @@ function Home() {
 
   // Reload User from cookie
   useEffect(() => {
-    const reloadUser = async () => {
-      if (user._id === undefined) {
-        let reloadUser = await getUserInfo();
-        dispatch(addUser(reloadUser));
-        console.log('Reloading user info');
-      }
-    }
-    reloadUser();
+    reloadUser(user);
     console.log(user);
   }, [dispatch, user]);
   

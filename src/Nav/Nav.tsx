@@ -1,12 +1,8 @@
 import './Nav.scss'
-import { useEffect } from 'react';
-import { getUserInfo } from '../helpers/userAPI';
 
 import { Link } from 'react-router-dom';
-
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
-import { addUser } from '../features/userSlice';
 
 import { User } from '../interfaces/User';
 
@@ -14,20 +10,6 @@ import {ReactComponent as Profile} from '../icons/person_black_24dp.svg';
 
 function Nav() {
   const user: User = useSelector((state: RootState) => state.user.value as User);
-  const dispatch = useDispatch();
-
-  // Reload User from cookie as needed
-  useEffect(() => {
-    const reloadUser = async () => {
-      if (user._id === undefined) {
-        let reloadUser = await getUserInfo();
-        dispatch(addUser(reloadUser));
-        console.log('Reloading user info');
-      }
-    }
-    reloadUser();
-    console.log(user);
-  }, [dispatch, user]);
 
   return (
     <div className="Nav">

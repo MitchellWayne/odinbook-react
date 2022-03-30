@@ -1,3 +1,7 @@
+import { store } from '../app/store';
+import { addUser } from '../features/userSlice';
+import { User } from '../interfaces/User';
+
 export const getUserInfo = async () => {
   let userID = '';
   const cookies = document.cookie.split('; ');
@@ -48,5 +52,13 @@ export const createUser = async (params: URLSearchParams) => {
     }
   } catch(err) {
     console.log("Error on User POST");
+  }
+}
+
+export const reloadUser = async (user: User) => {
+  if (user._id === undefined) {
+    let reloadUser = await getUserInfo();
+    store.dispatch(addUser(reloadUser));
+    console.log('Reloading user info');
   }
 }
