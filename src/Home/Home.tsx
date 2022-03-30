@@ -17,6 +17,7 @@ function Home() {
       if (user._id === undefined) {
         let reloadUser = await getUserInfo();
         dispatch(addUser(reloadUser));
+        console.log('Reloading user info');
       }
     }
     reloadUser();

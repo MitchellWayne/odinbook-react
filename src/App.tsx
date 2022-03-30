@@ -1,4 +1,3 @@
-import React, { Fragment } from 'react';
 import './App.scss';
 
 import { HashRouter, Routes, Route } from "react-router-dom";
