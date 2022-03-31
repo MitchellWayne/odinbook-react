@@ -56,7 +56,7 @@ export const createUser = async (params: URLSearchParams) => {
 }
 
 export const reloadUser = async (user: User) => {
-  if (user._id === undefined) {
+  if (!user._id) {
     let reloadUser = await getUserInfo();
     store.dispatch(addUser(reloadUser));
     console.log('Reloading user info');

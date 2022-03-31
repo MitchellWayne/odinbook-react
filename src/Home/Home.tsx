@@ -14,8 +14,8 @@ function Home() {
 
   // Reload User from cookie
   useEffect(() => {
+    // This only reloads user in store if we detect user as empty and a user cookie still exists
     reloadUser(user);
-    console.log(user);
   }, [dispatch, user]);
   
   return (

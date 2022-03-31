@@ -8,4 +8,6 @@ export interface Post {
   likes: string[];
   comments: string[];
   edited: boolean;
+  imgURL: string;
+  pfpURL: string;
 }

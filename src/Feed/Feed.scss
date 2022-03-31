@@ -2,5 +2,7 @@
 
 .Feed {
   margin-top: 8vh;
-  color: orange;
+
+  @include d.displayFlex(column);
+  align-items: center;
 }
