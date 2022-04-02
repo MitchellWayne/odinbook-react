@@ -72,11 +72,13 @@
   &__title {
     @include d.tekoFont(bold);
     padding: 1vh 1vh 0 1vh;
+    text-align: left;
   }
 
   &__text {
     padding: 0 1vh 1vh 1vh;
     font-size: .75em;
+    text-align: left;
   }
 
   &__stats {
