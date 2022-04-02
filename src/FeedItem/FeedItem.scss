@@ -35,6 +35,14 @@
     .flexWrapper {
       @include d.displayFlex(row);
       align-items: center;
+
+      padding: .5%;
+
+      .iconWrapper {
+        aspect-ratio: 1/1;
+        display: flex;
+        width: 2em;
+      }
     }
 
     #{$f}__profIcon {

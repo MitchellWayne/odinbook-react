@@ -15,7 +15,7 @@ function FeedItem(props: any) {
         <span className="flexWrapper">
           {
             !props.profileItem ?
-            <span>
+            <span className="iconWrapper">
               {
                 post.pfpURL ?
                 <div className="FeedItem__profIcon">
