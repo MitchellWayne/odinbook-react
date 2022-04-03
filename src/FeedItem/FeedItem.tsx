@@ -12,22 +12,24 @@ import { RootState } from '../app/store';
 const he = require('he');
 
 function FeedItem(props: any) {
-  const user: User = useSelector((state: RootState) => state.user.value as User);
-  const post: Post = props.post;
+  // const user: User = useSelector((state: RootState) => state.user.value as User);
+  // const post: Post = props.post;
+
+  const { userid, post } = props;
 
   const [likeClass, setLikeClass] = useState("");
 
   const handleLike = async () => {
-    if (!post.likes.includes(user._id)) {
+    if (!post.likes.includes(userid)) {
       // Handle adding like
       try {
-        let response = await fetch(`/users/${user._id}/posts/${post._id}/like`, {
+        let response = await fetch(`/users/${userid}/posts/${post._id}/like`, {
           method: "POST",
           credentials: "include",
         });
   
         if(response.status === 200) {
-          props.post.likes.push(user._id);
+          props.post.likes.push(userid);
           setLikeClass("ThumbUp__container ThumbUp__container--liked");
           console.log("Successfully liked post");
         } else {
@@ -40,13 +42,13 @@ function FeedItem(props: any) {
     // Handle removing like
     else {
       try {
-        let response = await fetch(`/users/${user._id}/posts/${props.post._id}/like`, {
+        let response = await fetch(`/users/${userid}/posts/${props.post._id}/like`, {
           method: "DELETE",
           credentials: "include",
         });
   
         if(response.status === 200) {
-          props.post.likes.splice(props.post.likes.indexOf(user._id), 1)
+          props.post.likes.splice(props.post.likes.indexOf(userid), 1)
           setLikeClass("ThumbUp__container");
           console.log("Successfully unliked post");
         } else {
@@ -59,9 +61,9 @@ function FeedItem(props: any) {
   };
 
   useEffect(() => {
-    let calcClass = post.likes.includes(user._id) ? "ThumbUp__container ThumbUp__container--liked" : "ThumbUp__container";
+    let calcClass = post.likes.includes(userid) ? "ThumbUp__container ThumbUp__container--liked" : "ThumbUp__container";
     setLikeClass(calcClass);
-  }, [post.likes, user._id]);
+  }, [post.likes, userid]);
 
   return (
     <div className="FeedItem">

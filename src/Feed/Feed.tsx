@@ -51,6 +51,7 @@ function Feed (props: any) {
         feed.map((post: Post) =>
         <FeedItem
           key={post._id}
+          userid={user._id}
           post={post}
         />
         )
