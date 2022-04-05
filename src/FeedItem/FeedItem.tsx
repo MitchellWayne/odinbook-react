@@ -18,9 +18,9 @@ function FeedItem(props: any) {
   const { userid, post } = props;
 
   const [likeClass, setLikeClass] = useState("");
+  const [commentText, setCommentText] = useState("");
 
   const [showComments, setShowComments] = useState(false);
-  const [commentText, setCommentText] = useState("");
   const [comments, setComments] = useState(Array(post.comments.length));
   const [numComments, setNumComments] = useState(post.comments.length);
 
@@ -127,6 +127,10 @@ function FeedItem(props: any) {
     e.preventDefault();
     createComment();
   }
+
+  useEffect(() => {
+    setNumComments(comments.length);
+  }, [comments.length]);
 
   useEffect(() => {
     let calcClass = post.likes.includes(userid) ? "ThumbUp__container ThumbUp__container--liked" : "ThumbUp__container";
