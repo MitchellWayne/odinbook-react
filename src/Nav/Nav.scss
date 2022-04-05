@@ -17,7 +17,8 @@
   height: calc(100% - 7vh);
 
   background-color: d.$primary-white;
-  background-image: linear-gradient(to bottom, d.$primary-white 88%, d.$primary-color 98%, d.$primary-darken 100%);
+  background-image: linear-gradient(to bottom, d.$primary-white 91%, d.$primary-color 98%, d.$primary-darken 100%);
+  box-shadow: -1px 0 2px d.$primary-color, 1px 0 2px d.$primary-color;
   z-index: 10;
 
   .profPicContainer {
