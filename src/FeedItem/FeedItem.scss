@@ -192,6 +192,8 @@
 
 .commentList {
   // margin-top: 1vh;
+  max-height: 6em;
+  overflow: scroll;
 }
 
 .sampleComment {
@@ -201,12 +203,21 @@
   background-color: d.$primary-white;
   font-size: .8em;
 
+  border-left: .25em solid d.$primary-color;
+  margin-top: 1%;
+  // box-shadow: 2px 0 0 d.$primary-color;
+
   &__text {
-    padding: 0 0 .75vh .5vw;
+    padding: .25vh .5vw;
+    // padding: 0 0 .75vh .5vw;
   }
 
   &__author {
     @extend .sampleComment__text;
+  }
+
+  &:hover {
+    background-color: d.$primary-offwhite;
   }
 }
 
