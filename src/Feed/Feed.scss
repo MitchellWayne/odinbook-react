@@ -6,3 +6,11 @@
   @include d.displayFlex(column);
   align-items: center;
 }
+
+@include d.desktop {
+  .Feed {
+    &--navActive {
+      margin-right: 25%;
+    }
+  }
+}

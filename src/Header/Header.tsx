@@ -4,7 +4,6 @@ import { RootState } from '../app/store';
 import { setNav } from '../features/navSlice';
 
 import {ReactComponent as Profile} from '../icons/person_black_24dp.svg';
-
 import Nav from '../Nav';
 
 function Header() {

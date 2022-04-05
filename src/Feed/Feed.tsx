@@ -1,12 +1,13 @@
 import './Feed.scss';
-
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../app/store';
 
 import FeedItem from '../FeedItem';
-
 import { Post } from '../interfaces/Post';
 
 function Feed (props: any) {
+  const nav: boolean = useSelector((state: RootState) => state.nav.value);
   const { user } = props;
   const [feed, setFeed] = useState<Post[]>([]);
 
@@ -37,14 +38,8 @@ function Feed (props: any) {
     getFeed()
   }, [user]);
 
-  // useEffect(() => {
-  //   // console.log(Array.isArray(feed));
-  //   // console.log(feed.length);
-  //   console.log(feed);
-  // },[feed])
-
   return (
-    <div className="Feed">
+    <div className={`Feed ${nav ? 'Feed--navActive' : ''}`}>
       <div className="feedList">
       {
         feed && feed.length > 0 ?

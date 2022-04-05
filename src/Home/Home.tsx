@@ -1,5 +1,4 @@
 import './Home.scss'
-
 import { useEffect } from 'react';
 import { reloadUser } from '../helpers/userAPI';
 import { useSelector } from 'react-redux';
