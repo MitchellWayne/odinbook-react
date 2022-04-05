@@ -53,7 +53,14 @@ function Nav() {
             </Link>
           </li>
           <li><button className="option" >Friends</button></li>
-          <li><a className="option" href="/#/post">Create Post</a></li>
+          {/* <li><a className="option" href="/#/post">Create Post</a></li> */}
+          <li>
+            <Link
+              className="option"
+              to="/post">
+              Create Post
+            </Link>
+          </li>
           <li><a className="option" href="/#/users">Find Users</a></li>
           <li><button className="option" onClick={logout}>Log Out</button></li>
         </ul>
