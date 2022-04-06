@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import {ReactComponent as Profile} from '../../icons/person_black_24dp.svg';
 
 function Main(props: any) {
-  const { user } = props;
+  const { user, setUi } = props;
   const navigate = useNavigate();
 
   const logout = async () => {  
@@ -45,7 +45,7 @@ function Main(props: any) {
               My Profile
             </Link>
           </li>
-          <li><button className="option" >Friends</button></li>
+          <li><button className="option" onClick={() => setUi('friends')}>Friends</button></li>
           {/* <li><a className="option" href="/#/post">Create Post</a></li> */}
           <li>
             <Link

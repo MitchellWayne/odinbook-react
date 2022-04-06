@@ -14,6 +14,7 @@ function Feed (props: any) {
   // Load Feed Content via User & Friends Post lists
   useEffect(() => {
     const getFeed = async () => {
+      setFeed([]);
       if (user && user.friends) {
         const users = user.friends.concat(user._id);
         users.forEach( async (userID: string) => {
