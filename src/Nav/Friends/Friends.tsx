@@ -1,6 +1,8 @@
 import './Friends.scss';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { store } from '../../app/store';
+import { setFeed } from '../../features/feedSlice';
 
 import {ReactComponent as Profile} from '../../icons/person_black_24dp.svg';
 import { User } from '../../interfaces/User';
@@ -14,16 +16,13 @@ function Friends(props: any) {
 
   const filterList = (nameFilter: string) => {
     setVisibleFriendList([]);
-    props.setFilterFeedList([]);
-    props.setFilterFeed(false);
-
     if (nameFilter === '') {
       setVisibleFriendList([...friendList]);
-      props.setFilterFeed(false);
+      store.dispatch(setFeed({isFiltered: false, filter: ''}));
     }
     else {
       setVisibleFriendList([]);
-      props.setFilterFeedList([]);
+      store.dispatch(setFeed({isFiltered: true, filter: nameFilter}));
 
       friendList.forEach((friend: User) => {
         let fullname = friend.firstname + ' ' + friend.lastname;
@@ -32,8 +31,6 @@ function Friends(props: any) {
           setVisibleFriendList((visibleFriendList) => [...visibleFriendList, friend]);
         }
       });
-
-      props.setFilterFeed(true);
     }
   };
 

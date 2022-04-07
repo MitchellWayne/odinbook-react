@@ -8,6 +8,8 @@ import { Post } from '../interfaces/Post';
 
 function Feed (props: any) {
   const nav: boolean = useSelector((state: RootState) => state.nav.value);
+  const isFeedFiltered: boolean = useSelector((state: RootState) => state.feed.isFiltered);
+  const feedFilter: string = useSelector((state: RootState) => state.feed.filter);
   const { user } = props;
   const [feed, setFeed] = useState<Post[]>([]);
 
@@ -44,13 +46,29 @@ function Feed (props: any) {
       <div className="feedList">
       {
         feed && feed.length > 0 ?
-        feed.map((post: Post) =>
-        <FeedItem
-          key={post._id}
-          userid={user._id}
-          post={post}
-        />
-        )
+        <>
+        {
+          !isFeedFiltered ?
+          feed.map((post: Post) => {
+          return (
+          <FeedItem
+            key={post._id}
+            userid={user._id}
+            post={post}
+          />)})
+          :
+          feed.map((post: Post) => {
+          if(post.authorString.toLowerCase().includes(feedFilter.toLowerCase()))
+            return (
+            <FeedItem 
+              key={post._id}
+              userid={user._id}
+              post={post}
+            />)
+          else return (null);
+          })
+        }
+        </>        
         :
         null
 
