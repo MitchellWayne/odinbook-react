@@ -168,7 +168,16 @@ function Friends(props: any) {
               <li key={i}>
                 <div className="FriendItem">
                   <span className="FriendItem__primaryInfo">
-                    <div className="FriendItem__pfp"><Profile className="profileIcon" /></div>
+                  {
+                    item.pfpURL ?
+                    <div className="FriendItem__pfp">
+                      <img className="profileIcon profileIcon--pfp" alt="user pfp"
+                        src={`/users/${item._id}/pfpS3/${item.pfpURL}`}>  
+                      </img>
+                    </div>
+                    :
+                    <div className="FriendItem__pfp"><Profile className="profileIcon"/></div>
+                  }
                     <div className="FriendItem__fullname">{`${item.firstname} ${item.lastname}`}</div>
                   </span>
                   <span className="FriendItem__secondaryInfo">
