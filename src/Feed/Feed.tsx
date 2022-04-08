@@ -12,10 +12,12 @@ function Feed (props: any) {
   const feedFilter: string = useSelector((state: RootState) => state.feed.filter);
   const { user } = props;
   const [feed, setFeed] = useState<Post[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Load Feed Content via User & Friends Post lists
   useEffect(() => {
     const getFeed = async () => {
+      setIsLoading(true);
       setFeed([]);
       if (user && user.friends) {
         const users = user.friends.concat(user._id);
@@ -32,20 +34,21 @@ function Feed (props: any) {
                 return new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf();
               }));
             });
+            setTimeout(() => {setIsLoading(false)}, 1000);
           } catch (err){
             console.log("Failed to get postlist by friendID");
           }
         });
       }
     }
-    getFeed()
+    getFeed();
   }, [user]);
 
   return (
     <div className={`Feed ${nav ? 'Feed--navActive' : ''}`}>
       <div className="feedList">
       {
-        feed && feed.length > 0 ?
+        !isLoading && feed && feed.length  > 0 ?
         <>
         {
           !isFeedFiltered ?
@@ -70,8 +73,14 @@ function Feed (props: any) {
         }
         </>        
         :
-        null
-
+        <>
+        {
+          isLoading ?
+          <div className="loadingMsg">Loading Posts...</div>
+          :
+          null
+        }
+        </>
       }
       </div>
     </div>
