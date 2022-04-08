@@ -54,7 +54,7 @@ function Main(props: any) {
               Create Post
             </Link>
           </li>
-          <li><a className="option" href="/#/users">Find Users</a></li>
+          <li><button className="option" onClick={() => setUi('users')}>Find Users</button></li>
           <li><button className="option" onClick={logout}>Log Out</button></li>
         </ul>
       </span>

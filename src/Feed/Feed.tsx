@@ -28,7 +28,7 @@ function Feed (props: any) {
               credentials: "include",
             });
             const postList = await response.json();
-            postList.forEach((postObj: Post) => {
+            await postList.forEach((postObj: Post) => {
               setFeed((feed) => [...feed, postObj]
               .sort(function(a,b){
                 return new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf();

@@ -5,6 +5,7 @@ import { RootState } from '../app/store';
 
 import Main from './Main';
 import Friends from './Friends';
+import Users from './Users';
 import { User } from '../interfaces/User';
 
 function Nav() {
@@ -14,7 +15,7 @@ function Nav() {
   const renderSwitch = () => {
     switch(uiSelector) {
       case 'friends': return <Friends user={user} setUi={setUiSelector}/>
-      case 'users': return <Main  user={user} setUi={setUiSelector}/>
+      case 'users': return <Users user={user} setUi={setUiSelector}/>
       case 'default': return <Main  user={user} setUi={setUiSelector}/>
       default:  return <Main  user={user} setUi={setUiSelector}/>
     }
