@@ -48,9 +48,11 @@ function Users(props: any) {
       <ul className="Users__searchResults">
       {
         userlist.map((user: User, i) => {
-          return (
-            <UserItem user={user} currentUser={currentUser} key={i}/>
-          )
+          if (user._id !== currentUser._id) {
+            return (<UserItem user={user} currentUser={currentUser} key={i}/>)
+          } else {
+            return null;
+          }
         })
       }
       </ul>
