@@ -15,7 +15,7 @@ function Nav() {
   const renderSwitch = () => {
     switch(uiSelector) {
       case 'friends': return <Friends user={user} setUi={setUiSelector}/>
-      case 'users': return <Users user={user} setUi={setUiSelector}/>
+      case 'users': return <Users currentUser={user} setUi={setUiSelector}/>
       case 'default': return <Main  user={user} setUi={setUiSelector}/>
       default:  return <Main  user={user} setUi={setUiSelector}/>
     }

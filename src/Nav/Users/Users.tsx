@@ -1,11 +1,10 @@
 import './Users.scss';
 import { useEffect, useState } from 'react';
 import { User } from '../../interfaces/User';
-
-import {ReactComponent as Profile} from '../../icons/person_black_24dp.svg';
+import UserItem from './UserItem';
 
 function Users(props: any) {
-  const { user, setUi } = props;
+  const { currentUser, setUi } = props;
   const [searchInput, setSearchInput] = useState('');
   const [userlist, setUserlist] = useState<User[]>([]);
 
@@ -50,40 +49,7 @@ function Users(props: any) {
       {
         userlist.map((user: User, i) => {
           return (
-            <li className="UserItem" key={i}>
-              <span className="UserItem__primaryInfo">
-                {
-                  user.pfpURL ?
-                  <div className="UserItem__pfp">
-                    <img className="profileIcon profileIcon--pfp" alt="user pfp"
-                      src={`/users/${user._id}/pfpS3/${user.pfpURL}`}>  
-                    </img>
-                  </div>
-                  :
-                  <div className="UserItem__pfp"><Profile className="profileIcon"/></div>
-                }
-                <div className="UserItem__fullname">
-                  {`${user.firstname} ${user.lastname}`}
-                </div>
-              </span>
-              {/* <span className="UserItem__secondaryInfo">
-                {
-                  !areFriends(props.user._id) && !reqExists(props.user._id) ?
-                  <span>
-                    <button className={uiadd} onClick={() => friendReq(props.user._id)}><AddFriend className="UserItem__add--Icon"/></button>
-                    <div className={uireqstatus}>Request sent!</div>
-                  </span>
-                  :
-                  null
-                }
-                {
-                  !areFriends(props.user._id) && reqExists(props.user._id) ?
-                  <div className="UserItem__reqStatus">Request pending...</div>
-                  :
-                  null
-                }
-              </span> */}
-            </li>
+            <UserItem user={user} currentUser={currentUser} key={i}/>
           )
         })
       }

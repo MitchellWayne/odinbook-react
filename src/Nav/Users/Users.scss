@@ -130,6 +130,44 @@
     display: flex;
     align-items: center;
   }
+
+  &__add {
+    height: 100%;
+    margin: 1vh 0 0 0;
+    padding: 0;
+    background-color: transparent;
+    fill: d.$primary-white;
+    border: none;
+
+    @include d.tekoFont(regular);
+    font-size: 2.5em;
+
+    &--Icon {
+      height: 100%;
+      width: 100%;
+    }
+
+    &:hover {
+      fill: d.$primary-black;
+    }
+
+    &:active {
+      transform: scale(.9);
+    }
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__reqStatus {
+    margin: 0 1vw 0 0;
+    font-size: 2.5em;
+
+    &--hidden {
+      display: none;
+    }
+  }
 }
 @keyframes populateUsers {
   from {
