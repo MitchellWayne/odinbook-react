@@ -1,6 +1,6 @@
 import './Friends.scss';
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { store } from '../../app/store';
 import { setFeed } from '../../features/feedSlice';
 
@@ -13,6 +13,8 @@ function Friends(props: any) {
   const [reqList, setReqList] = useState<User[]>([]);
   const [friendList, setFriendList] = useState<User[]>([]);
   const [visibleFriendList, setVisibleFriendList] = useState<User[]>([]);
+
+  const navigate = useNavigate();
 
   const filterList = (nameFilter: string) => {
     setVisibleFriendList([]);
@@ -228,7 +230,7 @@ function Friends(props: any) {
                     }}>
                     {`${item.firstname} ${item.lastname}`}
                   </Link> */}
-                  <div className="FriendItem__fullname">
+                  <div className="FriendItem__fullname" onClick={() => { navigate('/profile', { state: {id: item._id}})}}>
                     {`${item.firstname} ${item.lastname}`}
                   </div>
                 </span>
