@@ -3,6 +3,7 @@ import './FeedItem.scss';
 import {ReactComponent as Profile} from '../icons/person_black_24dp.svg';
 import {ReactComponent as ThumbUp} from '../icons/thumb_up_black_24dp.svg';
 
+import { Link } from 'react-router-dom';
 import { Post } from '../interfaces/Post';
 import { User } from '../interfaces/User';
 import { useSelector } from 'react-redux';
@@ -160,7 +161,13 @@ function FeedItem(props: any) {
             :
             null
           }
-          <div className="FeedItem__author">{post.authorString}</div>
+          <Link
+            className="FeedItem__author"
+            to="/profile"
+            state={{id: post.author}}
+          >
+            {post.authorString}
+          </Link>
         </span>
         <div className="FeedItem__timestamp">
           {new Date(props.post.timestamp).toLocaleDateString("en-US",

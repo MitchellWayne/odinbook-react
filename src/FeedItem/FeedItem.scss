@@ -61,6 +61,9 @@
 
     #{$f}__author {
       margin: 0 1vw 0 .5vw;
+      &:visited {
+        color: d.$primary-black;
+      }
     }
 
     #{$f}__timestamp {
