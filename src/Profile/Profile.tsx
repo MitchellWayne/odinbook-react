@@ -1,11 +1,11 @@
 import './Profile.scss';
-import { reloadUser } from '../helpers/userAPI';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
+import { useLocation } from 'react-router-dom';
 
 import { User } from '../interfaces/User';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Post } from '../interfaces/Post';
 
 type LocationState = { id: string };
 
@@ -13,16 +13,66 @@ function Profile(props: any) {
   const user: User = useSelector((state: RootState) => state.user.value as User);
   const nav: boolean = useSelector((state: RootState) => state.nav.value);
 
+  // id holds target user._id
   const location = useLocation();
   const { id } = location.state as LocationState;
-  // const [targetUser, setTargetUser] = useState(null); // We fetch target user id from navigate state
-  const [postList, setPostList] = useState([]);
-  const [userpfp, setUserpfp] = useState(null);
-  const [userabout, setUserabout] = useState(null);
+
+  const [postList, setPostList] = useState<Post[]>([]);
+  const [targetUser, setTargetUser] = useState<User>();
 
   useEffect(() => {
     console.log(id);
   }, [id])
+
+  useEffect(() => {
+    const populateFeedList = async () => {      
+      if (id !== null) {
+        setPostList([]);
+        try {
+          let response = await fetch(`/users/${id}/posts`, {
+            method: "GET",
+            credentials: "include",
+          });
+
+          const userPostList = await response.json();
+          userPostList.forEach((postObj: Post) => {
+            setPostList((postList) => [...postList, postObj]
+            .sort(function(a,b){
+              return new Date(b.timestamp).valueOf() - new Date(a.timestamp).valueOf();
+            }));
+          });
+        } catch (err){
+          console.log("Failed to get postlist by userID")
+        }
+      }
+    };  
+
+    const getUserInfo = async () => {
+      try {
+        let response = await fetch(`/users/${id}`, {
+          method: "GET",
+          credentials: "include",
+        });
+        const parsedResponse = await response.json();
+  
+        if(response.status === 200) {
+          setTargetUser(parsedResponse);
+        } else {
+          console.log("Error on GET by user id")
+        }
+      } catch {
+        console.log("Error on GET by user id block")
+      }
+    };
+
+    populateFeedList();
+    getUserInfo();
+  }, [id]);
+
+  useEffect(() => {
+    console.log(targetUser);
+    console.log(postList);
+  }, [postList, targetUser]);
 
   
   return (
