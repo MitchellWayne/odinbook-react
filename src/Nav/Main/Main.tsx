@@ -41,7 +41,8 @@ function Main(props: any) {
           <li>
             <Link
               className="option"
-              to="/profile">
+              to="/profile"
+              state={{id: user._id}}>
               My Profile
             </Link>
           </li>
