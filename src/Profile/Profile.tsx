@@ -1,11 +1,14 @@
 import './Profile.scss';
-import { useEffect, useState } from 'react';
+import '../Feed/Feed.scss';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 import { useLocation } from 'react-router-dom';
 
 import { User } from '../interfaces/User';
 import { Post } from '../interfaces/Post';
+import { reloadUser } from '../helpers/userAPI';
+import FeedItem from '../FeedItem';
 
 type LocationState = { id: string };
 
@@ -19,10 +22,17 @@ function Profile(props: any) {
 
   const [postList, setPostList] = useState<Post[]>([]);
   const [targetUser, setTargetUser] = useState<User>();
+  const [userAbout, setUserAbout] = useState<string>();
+  const [editingabout, setEditingabout] = useState(false);
 
+  // Reload User from cookie
   useEffect(() => {
-    console.log(id);
-  }, [id])
+    reloadUser(user);
+  }, [user]);
+
+  const toggleEditingabout = () => {
+    setEditingabout(!editingabout);
+  };
 
   useEffect(() => {
     const populateFeedList = async () => {      
@@ -69,23 +79,83 @@ function Profile(props: any) {
     getUserInfo();
   }, [id]);
 
-  useEffect(() => {
-    console.log(targetUser);
-    console.log(postList);
-  }, [postList, targetUser]);
+  const handleUpdateAbout = async () => {
+    if (userAbout) {
+      let urlParams = new URLSearchParams();
+      urlParams.append('firstname', user.firstname);
+      urlParams.append('lastname', user.lastname);
+      urlParams.append('username', user.username);
+      urlParams.append('about', userAbout);
+
+      try {
+        let response = await fetch(`/users/${user._id}`, {
+          method: "PUT",
+          body: urlParams,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          credentials: "include",
+        });
+
+        const parsedResponse = await response.json();
+
+        if (response.status !== 201) {
+          console.log(parsedResponse);
+        } else {
+          toggleEditingabout();
+        }
+        
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  const handlePfpUpload = async (event: ChangeEvent<HTMLInputElement>) => {
+    console.log("New file detected!");
+    console.log(event.target.files);
+
+    if (event.target.files) {
+      // Upload via Express API endpoint
+      const formData = new FormData();
+      formData.append("pfp", event.target.files[0]);
+
+      let response = await fetch(`/users/${user._id}/pfpS3`, {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+      });
+
+      const parsedResponse = await response.json();
+
+      if (response.status !== 201) {
+        console.log(parsedResponse);
+        reloadUser(user, true);
+      } else {
+        console.log(parsedResponse);
+      }
+    }
+  };
+
+  // useEffect(() => {
+  //   console.log(targetUser);
+  //   console.log(postList);
+  // }, [postList, targetUser]);
 
   
   return (
     <div className="Profile">
-      {/* <div className={`UserInfo ${nav ? "UserInfo--hidden" : ""}`}>
+      <div className={`UserInfo ${nav ? "UserInfo--hidden" : ""}`}>
         <div className="UserInfo__profIcon">
           {
-            userpfp ? 
-            // <img className="UserInfo__icon UserInfo__icon--pfp" alt="user pfp" src={userpfp}></img>
+            targetUser && targetUser.pfpURL ? 
             <label htmlFor="pfpupload">
-              <img className={`UserInfo__icon ${currentUserIsTarget ? 'UserInfo__icon--pfp' : ""}`} alt="user pfp" src={userpfp}></img>
+              <img
+                className={`UserInfo__icon ${targetUser._id === user._id ? 'UserInfo__icon--pfp' : ""}`}
+                alt="user pfp"
+                src={`/users/${targetUser._id}/pfpS3/${targetUser.pfpURL}`}
+              >
+              </img>
               {
-                currentUserIsTarget ? 
+                targetUser._id === user._id ? 
                 <input className="UserInfo__pfpUpload" type="file" id="pfpupload" 
                   accept=".jpeg, .jpg, .png"
                   onChange={e => handlePfpUpload(e)}
@@ -95,10 +165,13 @@ function Profile(props: any) {
               } 
             </label>
             :
-            <label htmlFor="pfpupload">
-              <Profile className={`UserInfo__icon ${currentUserIsTarget ? 'UserInfo__icon--pfp' : ""}`}/>
+            <>
+            {
+              targetUser && !targetUser.pfpURL ?
+              <label htmlFor="pfpupload">
+              <Profile className={`UserInfo__icon ${targetUser._id === user._id ? 'UserInfo__icon--pfp' : ""}`}/>
               {
-                currentUserIsTarget ? 
+                targetUser._id === user._id ? 
                 <input className="UserInfo__pfpUpload" type="file" id="pfpupload" 
                   accept=".jpeg, .jpg, .png"
                   onChange={e => handlePfpUpload(e)}
@@ -107,6 +180,10 @@ function Profile(props: any) {
                 null
               } 
             </label>
+              :
+              null
+            }
+            </>
           }
         </div>
         <div className="UserInfo__about">
@@ -115,7 +192,7 @@ function Profile(props: any) {
             <span>
               {
                 user ?
-                <span>{userabout ? userabout : "No additional information about this user."}</span>
+                <span>{targetUser?.about ? targetUser.about : "No additional information about this user."}</span>
                 :
                 <span>
                   No additional information about this user.
@@ -124,11 +201,16 @@ function Profile(props: any) {
             </span>
             :
             <span>
-              <textarea className="UserInfo__about--editing" value={userabout} onChange={e => setUserabout(e.target.value)}></textarea>
+              {
+                targetUser ?
+                <textarea className="UserInfo__about--editing" value={targetUser.about} onChange={e => setUserAbout(e.target.value)}></textarea>
+                :
+                null
+              }
             </span>
           }    
           {
-            currentUserIsTarget ? 
+            targetUser?._id === user._id ? 
             <span>
               <hr className="separator"></hr>
                 { 
@@ -144,22 +226,20 @@ function Profile(props: any) {
         </div>
       </div>
 
-      <div className={`FeedList ${optionsToggled ? "" : "FeedList--profile"}`}>
+      <div className={`Feed Feed--profile ${nav ? "Feed--profileNavActive" : ""}`}>
         {
           postList ?
-          postList.map((item, i) =>
+          postList.map((post) =>
             <FeedItem 
-              key={item._id}
-              post={item}
-              editing={true}
-              currentUserIsTarget={currentUserIsTarget}
-              profileItem={true}
+              key={post._id}
+              userid={user._id}
+              post={post}
             />
           )
           :
           null
         }
-      </div> */}
+      </div>
     </div>
   )
 }
