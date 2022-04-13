@@ -9,6 +9,7 @@ import { User } from '../interfaces/User';
 import { Post } from '../interfaces/Post';
 import { reloadUser } from '../helpers/userAPI';
 import FeedItem from '../FeedItem';
+import EditItem from '../EditItem';
 
 type LocationState = { id: string };
 
@@ -22,7 +23,7 @@ function Profile(props: any) {
 
   const [postList, setPostList] = useState<Post[]>([]);
   const [targetUser, setTargetUser] = useState<User>();
-  const [userAbout, setUserAbout] = useState<string>();
+  const [userAbout, setUserAbout] = useState<string>(targetUser ? targetUser.about : '');
   const [editingabout, setEditingabout] = useState(false);
 
   // Reload User from cookie
@@ -128,12 +129,16 @@ function Profile(props: any) {
 
       if (response.status !== 201) {
         console.log(parsedResponse);
-        reloadUser(user, true);
       } else {
         console.log(parsedResponse);
+        reloadUser(user, true);
       }
     }
   };
+
+  useEffect(() => {
+    setUserAbout(targetUser ? targetUser.about : '');
+  }, [targetUser])
 
   // useEffect(() => {
   //   console.log(targetUser);
@@ -192,7 +197,7 @@ function Profile(props: any) {
             <span>
               {
                 user ?
-                <span>{targetUser?.about ? targetUser.about : "No additional information about this user."}</span>
+                <span>{userAbout ? userAbout : "No additional information about this user."}</span>
                 :
                 <span>
                   No additional information about this user.
@@ -203,7 +208,7 @@ function Profile(props: any) {
             <span>
               {
                 targetUser ?
-                <textarea className="UserInfo__about--editing" value={targetUser.about} onChange={e => setUserAbout(e.target.value)}></textarea>
+                <textarea className="UserInfo__about--editing" value={userAbout} onChange={e => setUserAbout(e.target.value)}></textarea>
                 :
                 null
               }
@@ -229,13 +234,26 @@ function Profile(props: any) {
       <div className={`Feed Feed--profile ${nav ? "Feed--profileNavActive" : ""}`}>
         {
           postList ?
-          postList.map((post) =>
+          <>
+          {
+            targetUser && targetUser._id !== user._id ?
+            postList.map((post) =>
             <FeedItem 
               key={post._id}
               userid={user._id}
               post={post}
+            />)
+            :
+            postList.map((post) => 
+            <EditItem
+              key={post._id}
+              userid={user._id}
+              post={post}
             />
-          )
+            )
+          }
+          </>
+          
           :
           null
         }
