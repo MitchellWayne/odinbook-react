@@ -1,9 +1,19 @@
 import './Main.scss';
 import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../app/store';
+import { setNav } from '../../features/navSlice';
 
 import {ReactComponent as Profile} from '../../icons/person_black_24dp.svg';
 
 function Main(props: any) {
+  const nav: boolean = useSelector((state: RootState) => state.nav.value);
+  const dispatch = useDispatch();
+
+  const handleNavToggle = () => {
+    dispatch(setNav(!nav));
+  };
+
   const { user, setUi } = props;
   const navigate = useNavigate();
 
@@ -42,7 +52,8 @@ function Main(props: any) {
             <Link
               className="option"
               to="/profile"
-              state={{id: user._id}}>
+              state={{id: user._id}}
+              onClick={() => handleNavToggle()}>
               My Profile
             </Link>
           </li>
@@ -51,7 +62,8 @@ function Main(props: any) {
           <li>
             <Link
               className="option"
-              to="/post">
+              to="/post"
+              onClick={() => handleNavToggle()}>
               Create Post
             </Link>
           </li>

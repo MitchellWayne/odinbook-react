@@ -4,11 +4,22 @@ import { Link } from 'react-router-dom';
 import { store } from '../../app/store';
 import { setFeed } from '../../features/feedSlice';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../app/store';
+import { setNav } from '../../features/navSlice';
+
 import {ReactComponent as Profile} from '../../icons/person_black_24dp.svg';
 import { User } from '../../interfaces/User';
 import { reloadUser } from '../../helpers/userAPI';
 
 function Friends(props: any) {
+  const nav: boolean = useSelector((state: RootState) => state.nav.value);
+  const dispatch = useDispatch();
+
+  const handleNavToggle = () => {
+    dispatch(setNav(!nav));
+  };
+
   const { user, setUi } = props;
   const [reqList, setReqList] = useState<User[]>([]);
   const [friendList, setFriendList] = useState<User[]>([]);
@@ -224,6 +235,7 @@ function Friends(props: any) {
                     className="FriendItem__fullname"
                     to="/profile"
                     state={{id: item._id}}
+                    onClick={() => handleNavToggle()}
                   >
                     {`${item.firstname} ${item.lastname}`}
                   </Link>
