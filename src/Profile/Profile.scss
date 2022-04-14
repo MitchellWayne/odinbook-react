@@ -1,8 +1,9 @@
 @use '../defaults' as d;
 
 .Profile {
+  margin-top: 7vh;
   &__mainContent {
-    margin-top: 7vh;
+    // margin-top: 7vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,13 +15,9 @@
   }
 }
 
-.Feed--profile {
-  margin-left: 25%;
-}
-
 .Feed--profileNavActive {
   margin-left: 0;
-  margin-right: 25%;
+  margin-right: 50%;
 }
 
 .EditItem {
@@ -172,8 +169,12 @@
 @include d.desktop {
   .Profile {
     &__mainContent--fix {
-      margin: 8vh 25% 0 0;
+      // margin: 8vh 25% 0 0;
     }
+  }
+
+  .Feed--profile {
+    margin-left: 25%;
   }
 
   .EditItem {

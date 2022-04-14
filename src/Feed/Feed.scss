@@ -1,7 +1,7 @@
 @use '../defaults' as d;
 
 .Feed {
-  margin-top: 8vh;
+  // margin-top: 8vh;
 
   @include d.displayFlex(column);
   align-items: center;
