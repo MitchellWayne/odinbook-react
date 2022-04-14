@@ -15,10 +15,16 @@ function Login() {
   // Replaces React Router useHistory() as of v6
   const navigate = useNavigate();
 
-  const loginUser = async () => {
+  const loginUser = async (testdrive = false) => {
     let urlParams = new URLSearchParams();
-    urlParams.append('username', username);
-    urlParams.append('password', password);
+    if (testdrive) {
+      urlParams.append('username', 'fake@email');
+      urlParams.append('password', 'Password123!');
+    } else {
+      urlParams.append('username', username);
+      urlParams.append('password', password);
+    }
+    
     try {
       let response = await fetch(`/users/login`, {
         method: "POST",
@@ -49,8 +55,7 @@ function Login() {
   }
 
   const testDrive = () => {
-    setUsername("fake@email");
-    setPassword("Password123!");
+    loginUser(true);
   }
 
   return (
