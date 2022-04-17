@@ -25,6 +25,7 @@ $font-weight: (
 
 // Breakpoints
 $desktop: 768px;
+$standard: 1080px;
 
 // Functions should be used to compute and return values
 @function fFamily($family-name) {
@@ -56,6 +57,12 @@ $desktop: 768px;
 
 @mixin desktop {
   @media only screen and (min-width: $desktop) and (orientation: landscape) and (min-aspect-ratio: 16/14){
+    @content;
+  }
+}
+
+@mixin standard {
+  @media only screen and (min-width: $standard) and (orientation: landscape) and (min-aspect-ratio: 16/14){
     @content;
   }
 }
