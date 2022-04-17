@@ -27,6 +27,7 @@ $font-weight: (
 $desktop: 768px;
 $standard: 1080px;
 
+
 // Functions should be used to compute and return values
 @function fFamily($family-name) {
   @return map-get($font-family, $family-name);
@@ -63,6 +64,12 @@ $standard: 1080px;
 
 @mixin standard {
   @media only screen and (min-width: $standard) and (orientation: landscape) and (min-aspect-ratio: 16/14){
+    @content;
+  }
+}
+
+@mixin macdpi {
+  @media only screen and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) and (min-aspect-ratio: 16/14){
     @content;
   }
 }

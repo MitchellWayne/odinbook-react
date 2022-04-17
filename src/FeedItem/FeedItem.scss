@@ -326,6 +326,22 @@
 @include d.desktop {
   .FeedItem {
     width: 50vw;
+
+    .ThumbUp__container svg {
+      width: 100%;
+      height: 3em;
+    }
+  }
+}
+
+@include d.macdpi {
+  .FeedItem {
+    width: 50vw;
+
+    .ThumbUp__container svg {
+      width: 100%;
+      height: auto;
+    }
   }
 }
 
