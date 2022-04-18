@@ -38,6 +38,12 @@
   }
 }
 
+@include d.standard {
+  .Nav {
+    width: 20%;
+  }
+}
+
 @keyframes slidedown {
   from {
     top: -100vh;

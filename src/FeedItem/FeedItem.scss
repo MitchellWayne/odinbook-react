@@ -345,6 +345,17 @@
   }
 }
 
+@include d.standard {
+  .FeedItem {
+    width: 40vw;
+
+    .ThumbUp__container svg {
+      width: 100%;
+      height: 2.5em;
+    }
+  }
+}
+
 @keyframes slideright {
   from {
     margin-right: 200vw;
