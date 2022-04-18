@@ -118,6 +118,7 @@
   }
 }
 
+
 @include d.desktop {
   .CreatePost {
       &--navActive {
@@ -136,5 +137,11 @@
           right: 1vw;
         }
       }
+  }
+}
+
+@include d.standard {
+  .Postform {
+    width: 40vw;
   }
 }
