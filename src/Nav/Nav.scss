@@ -44,6 +44,12 @@
   }
 }
 
+@include d.macdpi {
+  .Nav {
+    width: 25%;
+  }
+}
+
 @keyframes slidedown {
   from {
     top: -100vh;

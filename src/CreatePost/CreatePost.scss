@@ -147,3 +147,11 @@
     }
   }
 }
+
+@include d.macdpi {
+  .CreatePost {
+    .Postform {
+      width: 50vw;
+    }
+  }
+}
