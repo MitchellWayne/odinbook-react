@@ -3,7 +3,6 @@
 .Profile {
   margin-top: 7vh;
   &__mainContent {
-    // margin-top: 7vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -167,12 +166,6 @@
 }
 
 @include d.desktop {
-  .Profile {
-    &__mainContent--fix {
-      // margin: 8vh 25% 0 0;
-    }
-  }
-
   .Feed--profile {
     margin-left: 25%;
   }

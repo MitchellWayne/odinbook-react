@@ -4,18 +4,11 @@ import {ReactComponent as Profile} from '../icons/person_black_24dp.svg';
 import {ReactComponent as ThumbUp} from '../icons/thumb_up_black_24dp.svg';
 
 import { Link } from 'react-router-dom';
-import { Post } from '../interfaces/Post';
-import { User } from '../interfaces/User';
-import { useSelector } from 'react-redux';
-import { ReactEventHandler, useEffect, useState } from 'react';
-import { RootState } from '../app/store';
+import { useEffect, useState } from 'react';
 
 const he = require('he');
 
 function FeedItem(props: any) {
-  // const user: User = useSelector((state: RootState) => state.user.value as User);
-  // const post: Post = props.post;
-
   const { userid, post } = props;
 
   const [likeClass, setLikeClass] = useState("");
@@ -27,8 +20,8 @@ function FeedItem(props: any) {
 
 
   const handleLike = async () => {
+    // Add like
     if (!post.likes.includes(userid)) {
-      // Handle adding like
       try {
         let response = await fetch(`/users/${userid}/posts/${post._id}/like`, {
           method: "POST",
@@ -46,7 +39,7 @@ function FeedItem(props: any) {
         console.log("Error on try post like POST");
       }
     } 
-    // Handle removing like
+    // Remove like
     else {
       try {
         let response = await fetch(`/users/${userid}/posts/${props.post._id}/like`, {
@@ -98,6 +91,7 @@ function FeedItem(props: any) {
     }
   };
 
+  // Retrieve comments on toggle or on creating a comment
   const getComments = async () => {
     try {
       let response = await fetch(`/users/${userid}/posts/${post._id}/comments`, {
@@ -129,10 +123,12 @@ function FeedItem(props: any) {
     createComment();
   }
 
+  // Watch comments state to update visible comment list length
   useEffect(() => {
     setNumComments(comments.length);
   }, [comments.length]);
 
+  // Check whether user has liked a post to apply relevent styling
   useEffect(() => {
     let calcClass = post.likes.includes(userid) ? "ThumbUp__container ThumbUp__container--liked" : "ThumbUp__container";
     setLikeClass(calcClass);
