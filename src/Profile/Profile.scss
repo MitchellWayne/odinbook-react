@@ -252,3 +252,13 @@
     }
   }
 }
+
+@include d.standard {
+  .UserInfo {
+    width: 18vw;
+  }
+
+  .EditItem {
+    width: 40vw;
+  }
+}
