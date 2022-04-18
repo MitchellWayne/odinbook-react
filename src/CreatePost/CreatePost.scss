@@ -141,7 +141,9 @@
 }
 
 @include d.standard {
-  .Postform {
-    width: 40vw;
+  .CreatePost {
+    .Postform {
+      width: 40vw;
+    }
   }
 }
