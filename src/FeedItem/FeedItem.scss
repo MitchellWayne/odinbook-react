@@ -61,8 +61,14 @@
 
     #{$f}__author {
       margin: 0 1vw 0 .5vw;
+      color: d.$primary-black;
+
       &:visited {
         color: d.$primary-black;
+      }
+
+      &:hover {
+        color: d.$primary-white;
       }
     }
 
