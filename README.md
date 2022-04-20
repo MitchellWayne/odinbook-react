@@ -1,7 +1,6 @@
 # Odinbook (Just another social site)
 
-Deployed on Heroku
-[https://odinbook-mw.herokuapp.com/#/home](https://odinbook-mw.herokuapp.com/#/)
+Deployed on [Heroku](https://odinbook-mw.herokuapp.com/#/)
 
 Many of this project's features were built with The Odin Project's web development curriculum in mind, but have slight variations from the specifications that I felt were needed to make it a bit more unique.
 
