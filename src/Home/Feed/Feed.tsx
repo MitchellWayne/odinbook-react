@@ -1,10 +1,10 @@
 import './Feed.scss';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../app/store';
+import { RootState } from '../../app/store';
 
 import FeedItem from '../FeedItem';
-import { Post } from '../interfaces/Post';
+import { Post } from '../../interfaces/Post';
 
 function Feed (props: any) {
   const nav: boolean = useSelector((state: RootState) => state.nav.value);

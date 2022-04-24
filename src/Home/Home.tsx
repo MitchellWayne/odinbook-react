@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
 
 import { User } from '../interfaces/User';
-import Feed from '../Feed';
+import Feed from './Feed';
 
 function Home() {
   const user: User = useSelector((state: RootState) => state.user.value as User);

@@ -1,5 +1,5 @@
 import './Profile.scss';
-import '../Feed/Feed.scss';
+import '../Home/Feed/Feed.scss';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../app/store';
@@ -8,8 +8,8 @@ import { useLocation } from 'react-router-dom';
 import { User } from '../interfaces/User';
 import { Post } from '../interfaces/Post';
 import { reloadUser } from '../helpers/userAPI';
-import FeedItem from '../FeedItem';
-import EditItem from '../EditItem';
+import FeedItem from '../Home/FeedItem';
+import EditItem from './EditItem';
 
 type LocationState = { id: string };
 
