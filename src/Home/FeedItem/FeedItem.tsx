@@ -1,7 +1,7 @@
 import './FeedItem.scss';
 
-import {ReactComponent as Profile} from '../icons/person_black_24dp.svg';
-import {ReactComponent as ThumbUp} from '../icons/thumb_up_black_24dp.svg';
+import {ReactComponent as Profile} from '../../icons/person_black_24dp.svg';
+import {ReactComponent as ThumbUp} from '../../icons/thumb_up_black_24dp.svg';
 
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';

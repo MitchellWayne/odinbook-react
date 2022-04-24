@@ -1,9 +1,9 @@
-import '../FeedItem/FeedItem.scss';
-import '../CreatePost/CreatePost.scss';
+import '../../Home/FeedItem/FeedItem.scss';
+import '../../CreatePost/CreatePost.scss';
 
 import React, { useState, useEffect } from 'react';
-import {ReactComponent as Profile} from '../icons/person_black_24dp.svg';
-import {ReactComponent as ThumbUp} from '../icons/thumb_up_black_24dp.svg';
+import {ReactComponent as Profile} from '../../icons/person_black_24dp.svg';
+import {ReactComponent as ThumbUp} from '../../icons/thumb_up_black_24dp.svg';
 
 const he = require('he');
 
